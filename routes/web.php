@@ -18,3 +18,6 @@ Route::get('/', function () {
 });
 
 Route::post('/create','UserController@store')->name('user.store');
+Route::get('/departamentos','SedeController@getDepartamentos');
+Route::get('/provincias/{departmento_id}','SedeController@getProvincias');
+Route::get('/distritos/{departmento_id}/{provincia_id}','SedeController@getDistritos');
