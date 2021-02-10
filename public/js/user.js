@@ -12,7 +12,7 @@ $(document).ready(function(){
         address: /^[a-zA-Z0-9À-ÿ\s\_\-\()]{6,150}$/, // Letras, numeros, guion y guion_bajo
         fullname: /^[a-zA-ZÀ-ÿ\s]{1,100}$/, // Letras y espacios, pueden llevar acentos.
         doc_type: /^[a-zA-Z]/,
-        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$#!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/,
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$#!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,50}$/,
         email: /^([a-z0-9._%+-]+@[a-z0-9.-]+\.([a-z]{2,3}))$/,
         number_doc: /^[a-zA-Z0-9]{8,15}$/,
         department: /^[a-zA-Z0-9]/,

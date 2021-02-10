@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserCreateRequest;
 use App\Mail\SuccessRegister;
 use Carbon\Carbon;
@@ -39,18 +40,24 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(UserCreateRequest $request){
+        
         try {
             DB::beginTransaction();
+
+            $departmento = DB::table('departamentos')->where('id',$request->department)->get('nombre')->first();
+            $provincia = DB::table('provincias')->where('id',$request->province)->get('nombre')->first();
+            $distrito = DB::table('sedes')->where('id',$request->distrit)->get('nombre')->first();
+            
             //code...
-            $carbon = new Carbon();
+            $date = date_parse($request->birthday);
             $user = new User();
             $user->fullname = $request->fullname;
             $user->doc_type = 'DNI';
             $user->number_doc = $request->number_doc;
             $user->email = $request->email;
-            $user->password = $request->password;
-            $user->birthday = $carbon->format('Y-m-d',$request->birthday);
-            $user->address = $request->department.'-'.$request->pronvice.'-'.$request->distrit.'-'.$request->address;
+            $user->password = Hash::make($request->password);
+            $user->birthday = $date['year'].'-'.$date['month'].'-'. $date['day'];
+            $user->address = $departmento->nombre.'-'.$provincia->nombre.'-'.$distrito->nombre.'-'.$request->address;
             $user->save();
 
             Mail::to(env('MAIL_FROM_ADDRESS'))->send(new SuccessRegister());
@@ -64,7 +71,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             DB::rollback();
             $output = ['success' => false,
-                'msg' => $th->getMessage()
+                'msg' => 'Ocurrio un problema'
             ];
         }
             

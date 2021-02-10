@@ -17,7 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/create','UserController@store')->name('user.store');
+Route::post('/create','UserController@store')->name('user.store')->middleware('age');
 Route::get('/departamentos','SedeController@getDepartamentos');
 Route::get('/provincias/{departmento_id}','SedeController@getProvincias');
 Route::get('/distritos/{departmento_id}/{provincia_id}','SedeController@getDistritos');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

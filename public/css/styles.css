@@ -1,5 +1,8 @@
 .form{
-    background-color: rgba(170, 170, 170, 0.925);
+    background-color: #fff;
     padding: 2rem;
     margin-top: 2rem;
+}
+body{
+    background-color: rgba(170, 170, 170, 0.925);
 }

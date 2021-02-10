@@ -4,6 +4,14 @@
 @section('content')
     <form class="form row" action="{{action('UserController@store')}}" method="POST" id="user_add_form">
         @csrf
+
+        @if (session('status'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error</strong> {{session('status')}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+       
         <div class="mb-3">
             <label for="fullname" class="form-label">Nombres y Apellidos *</label>
             <input type="text" name="fullname" class="form-control form__input" id="fullname" maxlength="100">
@@ -25,7 +33,7 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo Electronico *</label>
-            <input type="email" name="email" class="form-control form__input" id="email" maxlength="50">
+            <input type="email" name="email" class="form-control form__input" id="email" maxlength="60">
             <span class="text-danger d-none" id="span-email">Email es requerido</span>
         </div>
         <div class="mb-3">
@@ -63,8 +71,8 @@
             <input type="text" name="address" class="form-control form__input" id="address" maxlength="150" >
             <span class="text-danger d-none" id="span-address">La direccion es necesaria</span>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <button type="button" class="btn btn-secondary" id="btn-clear">Limpiar</button>
+        <button type="submit" class="btn btn-primary col-6">Guardar</button>
+        <button type="button" class="btn btn-secondary col-6" id="btn-clear">Limpiar</button>
         <div class="alert alert-danger alert-dismissible fade show d-none mt-5" role="alert" id="form-error">
             <strong>¡Error!</strong> Porfavor complete los campos marcados con *
         </div>
