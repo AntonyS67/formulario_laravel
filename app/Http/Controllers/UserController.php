@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 
+use Carbon\Carbon;
+
 class UserController extends Controller
 {
     /**
@@ -37,22 +39,23 @@ class UserController extends Controller
     public function store(UserCreateRequest $request){
         try {
             //code...
+            $carbon = new Carbon();
             $user = new User();
             $user->fullname = $request->fullname;
             $user->doc_type = 'DNI';
             $user->number_doc = $request->number_doc;
             $user->email = $request->email;
             $user->password = $request->password;
-            $user->birthday = $request->birthday;
+            $user->birthday = $carbon->format('Y-m-d',$request->birthday);
             $user->address = $request->address;
             $user->save();
 
             $output = ['success' => true,
-                'msg' => "Creado con exito"
+                'msg' => "Usuario creado con exito"
             ];
         } catch (\Throwable $th) {
             $output = ['success' => false,
-                'msg' => "Ocurrio un problema"
+                'msg' => 'Ocurrio un problema'
             ];
         }
             
