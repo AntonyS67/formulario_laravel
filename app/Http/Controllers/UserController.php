@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
-
+use App\Mail\SuccessRegister;
 use Carbon\Carbon;
+use Mail;
+use DB;
 
 class UserController extends Controller
 {
@@ -38,6 +40,7 @@ class UserController extends Controller
      */
     public function store(UserCreateRequest $request){
         try {
+            DB::beginTransaction();
             //code...
             $carbon = new Carbon();
             $user = new User();
@@ -47,15 +50,21 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = $request->password;
             $user->birthday = $carbon->format('Y-m-d',$request->birthday);
-            $user->address = $request->address;
+            $user->address = $request->department.'-'.$request->pronvice.'-'.$request->distrit.'-'.$request->address;
             $user->save();
+
+            Mail::to(env('MAIL_FROM_ADDRESS'))->send(new SuccessRegister());
+
+            DB::commit();
 
             $output = ['success' => true,
                 'msg' => "Usuario creado con exito"
             ];
+
         } catch (\Throwable $th) {
+            DB::rollback();
             $output = ['success' => false,
-                'msg' => 'Ocurrio un problema'
+                'msg' => $th->getMessage()
             ];
         }
             

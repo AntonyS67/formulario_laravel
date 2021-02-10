@@ -10,10 +10,10 @@ $(document).ready(function(){
     
     const expresiones = {
         address: /^[a-zA-Z0-9À-ÿ\s\_\-\()]{6,150}$/, // Letras, numeros, guion y guion_bajo
-        fullname: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+        fullname: /^[a-zA-ZÀ-ÿ\s]{1,100}$/, // Letras y espacios, pueden llevar acentos.
         doc_type: /^[a-zA-Z]/,
-        password: /^.{6,50}$/, // 4 a 12 digitos.
-        email: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$#!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$/,
+        email: /^([a-z0-9._%+-]+@[a-z0-9.-]+\.([a-z]{2,3}))$/,
         number_doc: /^[a-zA-Z0-9]{8,15}$/,
         department: /^[a-zA-Z0-9]/,
         province: /^[a-zA-Z0-9]/,
@@ -88,6 +88,7 @@ $(document).ready(function(){
             campos[campo] = true;
         }
     }
+
     const validarFormulario = (e) => {
         switch (e.target.name) {
             case "fullname":
@@ -133,7 +134,6 @@ $(document).ready(function(){
         $.ajax({
             url:url,
             success: function(departamentos){
-                data = eval(departamentos);
                 $.each(departamentos,function(index,value){
                     $('#department').append(
                         '<option value="'+value.id+'">'+value.nombre+'</option>'
@@ -148,7 +148,6 @@ $(document).ready(function(){
         $.ajax({
             url:url,
             success: function(provincias){
-                data = eval(provincias);
                 $('#province').empty();
                 $('#province').append(
                     '<option value="">-- Seleccione una provincia --</option>'
@@ -170,7 +169,6 @@ $(document).ready(function(){
         $.ajax({
             url:url,
             success: function(distritos){
-                data = eval(distritos);
                 $('#distrit').empty();
                 $('#distrit').append(
                     '<option value="">-- Seleccione un distrito --</option>'

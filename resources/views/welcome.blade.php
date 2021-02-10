@@ -6,7 +6,7 @@
         @csrf
         <div class="mb-3">
             <label for="fullname" class="form-label">Nombres y Apellidos *</label>
-            <input type="text" name="fullname" class="form-control form__input" id="fullname">
+            <input type="text" name="fullname" class="form-control form__input" id="fullname" maxlength="100">
             <span class="text-danger d-none" id="span-fullname">Nombres y apellidos son necesarios</span>
         </div>
         <div class="mb-3">
@@ -20,17 +20,17 @@
         </div>
         <div class="mb-3">
             <label class="form-check-label"  for="number_doc ">Numero de documento *</label>
-            <input type="text" class="form-control form__input" id="number_doc" name="number_doc" >
+            <input type="text" class="form-control form__input" id="number_doc" name="number_doc" maxlength="15">
             <span class="text-danger d-none" id="span-number_doc">Numero de documento es requerido</span>
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Correo Electronico *</label>
-            <input type="email" name="email" class="form-control form__input" id="email" >
+            <input type="email" name="email" class="form-control form__input" id="email" maxlength="50">
             <span class="text-danger d-none" id="span-email">Email es requerido</span>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Contraseña *</label>
-            <input type="password" name="password" class="form-control form__input" id="password" >
+            <input type="password" name="password" class="form-control form__input" id="password" maxlength="50" >
             <span class="text-danger d-none" id="span-password">La contraseña es requerida</span>
         </div>
         <div class="mb-3">
@@ -60,7 +60,7 @@
         </div>
         <div class="mb-3 col-6">
             <label for="address" class="form-label">Direccion *</label>
-            <input type="text" name="address" class="form-control form__input" id="address" >
+            <input type="text" name="address" class="form-control form__input" id="address" maxlength="150" >
             <span class="text-danger d-none" id="span-address">La direccion es necesaria</span>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
